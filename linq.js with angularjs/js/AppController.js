@@ -25,17 +25,17 @@ angular.module("App", [])
 		];
 		
 		
-		$scope.viewPersona = Enumerable.From($scope.Persona)
-		.Join($scope.Genero,//inner join
+		$scope.viewPersona = Enumerable.From($scope.Persona) //Persona
+		.Join($scope.Genero,//inner join Genero
 		"p => p.idGenero",
 		"g => g.idGenero",
 		"(p,g) => {p,g}")
-		.GroupJoin($scope.TipoPersona,//left join
+		.GroupJoin($scope.TipoPersona,//left join TipoPersona
 		"pg => pg.p.idTipoPersona",
 		"tp => tp.idTipoPersona",
 		"(pg,tp) => {p:pg.p,g:pg.g,tp}")
 		.SelectMany("x => x.tp.DefaultIfEmpty(null)","(pg,tp) => {p:pg.p,g:pg.g,tp}")
-		.GroupJoin($scope.Ciudad,//left join
+		.GroupJoin($scope.Ciudad,//left join Ciudad
 		"pgtp => pgtp.p.idCiudad",
 		"c => c.idCiudad",
 		"(pgtp,c) => "+
